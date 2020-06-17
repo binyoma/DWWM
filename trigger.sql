@@ -77,7 +77,11 @@ FOR EACH ROW BEGIN
 DECLARE id INT;
 DECLARE Diff INT; 
 SET id=OLD.pro_id; 
-SET Diff=(5-NEW.pro_stock );
+IF NEW.pro_stock >5 THEN 
+SET Diff=(NEW.pro_stock-5 );
+ELSE 
+SET Diff=( 5-NEW.pro_stock) ;
+END IF;
 IF (NEW.pro_stock < 5) 
 THEN
    IF (id IN (SELECT codart FROM commander_articles )) 
@@ -85,11 +89,11 @@ THEN
       UPDATE commander_articles
       SET qte= Diff, dte= CURRENT_TIMESTAMP
       WHERE codart=id;
-    END IF;
- THEN
- INSERT INTO `commander_articles`(`codart`,`qte`) VALUES (id,Diff); 
- END IF; 
- END 
+   ELSE
+      INSERT INTO `commander_articles`(`codart`,`qte`) VALUES (id,Diff); 
+   END IF; 
+END IF;
+END
 
  --1er cas
  UPDATE products
