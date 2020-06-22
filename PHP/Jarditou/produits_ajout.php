@@ -10,138 +10,103 @@
 <body> 
 <div class="container">	
 <div class="menu">
-  <nav id="navbar" class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav id="navbar" class="navbar navbar-expand-sm bg-dark navbar-dark">
     
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="liste.php">Accueil</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="Formulaire.html">Mon compte</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="Horaires.html">contact </a>
-              </li>
-          </ul>
-      </div> 
-  </nav>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="liste.php">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Formulaire.html">Mon compte</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Horaires.html">contact </a>
+                </li>
+            </ul>
+        </div> 
+    </nav>
 </div>
 <form action="produits_ajout_script.php" method="post" enctype="multipart/form-data">
 
-<div class="form-group">
-    <label for="pro_price"> Prix</label>
-    <input class="form-control" type="decimal"  name="pro_price">
-</div>
 <div class="form-group"> 
     <label for="pro_ref"> Référence</label>
     <input class="form-control" type="text"  name="pro_ref">
 </div>
 <div class="form-group"> 
-    <label for="pro_ean"> EAN</label>
-    <input class="form-control" type="text"  name="pro_ean">
+    <label for="photo"> Photo</label>
+    <input class="form-control" type="file"  name="photo">
 </div>
 <div class="form-group">
-    <label for="pro_stock_phy"> Stock</label>
-    <input class="form-control" type="number"  name="pro_stock_phy">
+    <label for="pro_cat_id"> Catégorie</label>
+    <?php	
+require "connexion_bdd.php"; 	
+$db = connexionBase(); 
+$requete = "SELECT cat_id , cat_nom 
+FROM categories 
+ORDER BY cat_nom ";	
+$result = $db->query($requete);	
+if (!$result) 	
+{
+    $tableauErreurs = $db->errorInfo();
+    echo $tableauErreurs[2]; 
+    die("Erreur dans la requête");
+}
+if ($result->rowCount() == 0) 	
+{
+   // Pas d'enregistrement
+    die("La table est vide");
+}	
+echo "	
+<select id=\"pro_cat_id\"  name=\"pro_cat_id\" class=\"custom-select\"  >";
+while ($row = $result->fetch(PDO::FETCH_OBJ))	
+{
+    
+    echo" <option value=$row->cat_id >$row->cat_nom</option>";
+    
+} 
+echo " </select>"
+?>
 </div>
+
 <div class="form-group">
-    <label for="pro_stock_alert"> Stock critique</label>
-    <input class="form-control" type="number"  name="pro_stock_alert">
-</div>
-<div class="form-group">
-    <label for="pro_color"> Couleur</label>
-    <input class="form-control" type="text"  name="pro_color">
-</div>
-<div class="form-group">
-    <label for="pro_name"> Libellé</label>
-    <input class="form-control" type="text"  name="pro_name">
+    <label for="pro_libelle"> Libellé</label>
+    <input class="form-control" type="text"  name="pro_libelle">
 </div>
 <div class="form-group overflow: hidden">
     <label for="pro_description"> Description</label>
     <input class="form-control" type="text"  name="pro_description">
 </div>
 <div class="form-group">
-    <label for="pro_publish"> Publier le produit  :</label>
+    <label for="pro_prix"> Prix</label>
+    <input class="form-control" type="decimal"  name="pro_prix">
+</div>
+<div class="form-group">
+    <label for="pro_stock"> Stock</label>
+    <input class="form-control" type="number"  name="pro_stock">
+</div>
+<div class="form-group">
+    <label for="pro_couleur"> Couleur</label>
+    <input class="form-control" type="text"  name="pro_couleur">
+</div>
+<div class="form-group">
+    <label for="pro_photo"> Extension de la photo</label>
+    <input class="form-control" type="text"  name="pro_photo">
+</div>
+
+<div class="form-group">
+    <label for="bloque"> Bloquer le produit  :</label>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="pro_publish" id="oui" value="oui" >
+        <input class="form-check-input" type="radio" name="bloque" id="oui" value="oui" >
         <label class="form-check-label" for="oui">Oui</label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="pro_publish" id="non" value="non" >
+        <input class="form-check-input" type="radio" name="bloque" id="non" value="non" >
         <label class="form-check-label" for="non">Non</label>
     </div>
-</div>
-<div class="form-group"> 
-    <label for="picture"> Photo</label>
-    <input class="form-control" type="file"  name="picture">
-</div>
-<div class="form-group">
-    <label for="pro_picture"> Extension de la photo</label>
-    <input class="form-control" type="text"  name="pro_picture">
-</div>
-<div class="form-group">
-    <label for="sup_id"> Fournisseur</label>
-    <?php	
-require "connexion_bdd.php"; 	
-$db = connexionBase(); 
-$requete = "SELECT sup_id , sup_name
-FROM suppliers 
-ORDER BY sup_name ";	
-$result = $db->query($requete);	
-if (!$result) 	
-{
-    $tableauErreurs = $db->errorInfo();
-    echo $tableauErreur[2]; 
-    die("Erreur dans la requête");
-}
-if ($result->rowCount() == 0) 	
-{
-   // Pas d'enregistrement
-   die("La table est vide");
-}	
-echo "	
-<select id=\"sup_id\"  name=\"sup_id\" class=\"custom-select\"  >";
-while ($row = $result->fetch(PDO::FETCH_OBJ))	
-{
-    
-    echo" <option value=$row->sup_id >$row->sup_name</option>";
-    
-} 
-echo " </select>"
-?>
-</div>
-<div class="form-group">
-    <label for="cat_id"> Catégorie</label>
-    <?php	 
-$requete = "SELECT cat_id , cat_name
-FROM categories 
-ORDER BY cat_name ";	
-$result = $db->query($requete);	
-if (!$result) 	
-{
-    $tableauErreurs = $db->errorInfo();
-    echo $tableauErreur[2]; 
-    die("Erreur dans la requête");
-}
-if ($result->rowCount() == 0) 	
-{
-   // Pas d'enregistrement
-   die("La table est vide");
-}	
-echo "	
-<select id=\"cat_id\"  name=\"cat_id\" class=\"custom-select\"  >";
-while ($row = $result->fetch(PDO::FETCH_OBJ))	
-{
-    
-    echo" <option value=$row->cat_id >$row->cat_name</option>";
-    
-} 
-echo " </select>"
-?>
 </div>
 <div class="row">
                 

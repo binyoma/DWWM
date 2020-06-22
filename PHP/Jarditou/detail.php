@@ -34,23 +34,23 @@
 
 </div>
 <div class="menu">
-  <nav id="navbar" class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav id="navbar" class="navbar navbar-expand-sm bg-dark navbar-dark">
     <!-- Toggler/collapsibe Button -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-              <li class="nav-item">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
                 <a class="nav-link" href="liste.php">Accueil</a>
-              </li>
-              <li class="nav-item">
+                </li>
+                <li class="nav-item">
                 <a class="nav-link" href="Formulaire.html">Mon compte</a>
-              </li>
-              <li class="nav-item">
+                </li>
+                <li class="nav-item">
                 <a class="nav-link" href="Horaires.html">contact </a>
-              </li>
-          </ul>
+                </li>
+            </ul>
       </div> 
   </nav>
 </div>

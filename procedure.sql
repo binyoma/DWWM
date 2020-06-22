@@ -40,10 +40,10 @@ CREATE PROCEDURE CA_Fournisseur(
 
 BEGIN
 
-   -- On déclare une variable p_existe qui stockera le résultat d'une requête 
+   
    DECLARE p_existe varchar(50); 
 
-   SET p_existe = SELECT numfou FROM fournis WHERE numfou = p_numfou;
+   SET p_existe = (SELECT numfou FROM fournis WHERE numfou = p_numfou);
 
    IF ISNULL(p_existe) 
    THEN
@@ -54,7 +54,7 @@ BEGIN
     INNER JOIN entcom 
     ON ligcom.numcom=entcom.numcom
     WHERE numfou= p_numfou
-   ENDIF;
+   END IF;
 
 END $$
 

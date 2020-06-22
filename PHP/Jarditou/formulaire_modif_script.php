@@ -60,73 +60,73 @@ $bloque=valid_donnees($_POST["bloque"]);
 
 
 
- if(isset($pro_ref)
-     && preg_match("/^[a-z0-9]{1,10}$/i",$pro_ref)
-     && isset($pro_cat_id)
-     && preg_match("/^[0-9]{1,10}$/",$pro_cat_id)
-     && isset($pro_libelle)
-     && preg_match("/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ._ -]{1,200}$/i",$pro_libelle)
-     && isset($pro_description)
-     && preg_match("/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ._ -]{0,1000}$/i",$pro_description)
-     && isset($pro_prix)
-     && preg_match("/^[0-9.]{1,6}$/",$pro_prix)
-     && isset($pro_stock)
-     && preg_match("/^[0-9]{1,11}$/",$pro_stock)
-     && isset($pro_couleur)
-     && preg_match("/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ ]{1,30}$/i",$pro_couleur)
-     && isset($pro_photo)
-     && preg_match("/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ ]{1,4}$/i",$pro_photo)){
-       try {
-           $db= connexionBase(); 
-           $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-           
+if(isset($pro_ref)
+    && preg_match("/^[a-z0-9]{1,10}$/i",$pro_ref)
+    && isset($pro_cat_id)
+    && preg_match("/^[0-9]{1,10}$/",$pro_cat_id)
+    && isset($pro_libelle)
+    && preg_match("/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ._ -]{1,200}$/i",$pro_libelle)
+    && isset($pro_description)
+    && preg_match("/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ._ -]{0,1000}$/i",$pro_description)
+    && isset($pro_prix)
+    && preg_match("/^[0-9.]{1,6}$/",$pro_prix)
+    && isset($pro_stock)
+    && preg_match("/^[0-9]{1,11}$/",$pro_stock)
+    && isset($pro_couleur)
+    && preg_match("/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ ]{1,30}$/i",$pro_couleur)
+    && isset($pro_photo)
+    && preg_match("/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ ]{1,4}$/i",$pro_photo)){
+      try {
+          $db= connexionBase(); 
+          $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
           
-           $sql="UPDATE produits 
-           SET pro_ref=:pro_ref, pro_cat_id=:pro_cat_id, pro_libelle=:pro_libelle,
+          $sql="UPDATE produits 
+            SET pro_ref=:pro_ref, pro_cat_id=:pro_cat_id, pro_libelle=:pro_libelle,
             pro_description=:pro_description, pro_prix=:pro_prix,pro_stock=:pro_stock,
-             pro_couleur=:pro_couleur, pro_photo=:pro_photo, pro_d_modif=:pro_d_modif
-             WHERE pro_id=:pro_id";
-           $stmt=$db->prepare($sql);
-           $stmt->execute(array(
-           'pro_ref'=>$pro_ref,
-           'pro_cat_id'=>$pro_cat_id,
-           'pro_libelle'=>$pro_libelle,
-           'pro_description'=>$pro_description,
-           'pro_prix'=>$pro_prix,
-           'pro_stock'=>$pro_stock,
-           'pro_couleur'=>$pro_couleur,
-           'pro_photo'=>$pro_photo,
-           'pro_d_modif'=>$pro_d_modif,
-           'pro_id'=>$pro_id
-           ));
+            pro_couleur=:pro_couleur, pro_photo=:pro_photo, pro_d_modif=:pro_d_modif
+            WHERE pro_id=:pro_id";
+
+          $stmt=$db->prepare($sql);
+          $stmt->execute(array(
+            'pro_ref'=>$pro_ref,
+            'pro_cat_id'=>$pro_cat_id,
+            'pro_libelle'=>$pro_libelle,
+            'pro_description'=>$pro_description,
+            'pro_prix'=>$pro_prix,
+            'pro_stock'=>$pro_stock,
+            'pro_couleur'=>$pro_couleur,
+            'pro_photo'=>$pro_photo,
+            'pro_d_modif'=>$pro_d_modif,
+            'pro_id'=>$pro_id
+            ));
            // On met les types autorisés dans un tableau (ici pour une image)
-           $aMimeTypes = array("image/gif", "image/jpeg", "image/pjpeg", "image/png", "image/x-png", "image/tiff");
+            $aMimeTypes = array("image/gif", "image/jpeg", "image/pjpeg", "image/png", "image/x-png", "image/tiff");
 
           // On extrait le type du fichier via l'extension FILE_INFO 
-           $finfo = finfo_open(FILEINFO_MIME_TYPE);
-          $mimetype = finfo_file($finfo, $_FILES["fichier"]["tmp_name"]);
-          finfo_close($finfo);
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimetype = finfo_file($finfo, $_FILES["fichier"]["tmp_name"]);
+            finfo_close($finfo);
 
           if (in_array($mimetype, $aMimeTypes))
-             {
-   
+              {
+    
             move_uploaded_file($_FILES['fichier']['tmp_name'], 'jarditou_photos/' . $db->lastInserId());
             } 
           else 
             {
            // Le type n'est pas autorisé, donc ERREUR
 
-           echo "Type de fichier non autorisé";    
+            echo "Type de fichier non autorisé";    
               exit;
-           }    
+            }    
 
-           header("location:liste.php");
+            header("location:liste.php");
           }
       catch(PDOException $e){
           echo " Erreur :".$e->getMessage();
       }
      }else{
-        header("location:formulaire_modif_error.php");
+        header("location:formulaire_modif.php");
      }
 ?>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

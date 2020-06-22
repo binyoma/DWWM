@@ -11,14 +11,14 @@
 <div class="container">	
 <div class="row">
    <div class="col-3">
-        <img src="jarditou_photos//logo2.jpg" class="img-fluid rounded float-left " alt="logo">
+        <img src="jarditou_photos//jarditou_logo.jpg" class="img-fluid rounded float-left " alt="logo">
     </div>
     <div class="col-3">
     <br>
     <a href="produits_ajout.php" title="Ajouter un produit">Ajouter un produit</a>
     </div>
     <div class="col-6">
-      <img src="jarditou_photos//prom.jpg" class="img-fluid max-width: 100%  " alt="promotion">
+      <img src="jarditou_photos//promotion.jpg" class="img-fluid max-width: 100%  " alt="promotion">
     </div>
 
 </div>
@@ -46,9 +46,9 @@
 <?php	
 require "connexion_bdd.php"; // Inclusion de notre bibliothèque de fonctions	
 $db = connexionBase(); // Appel de la fonction de connexion	
-$requete = "SELECT pro_id , pro_ref, pro_libelle, pro_prix, pro_stock, pro_couleur, pro_d_ajout,pro_d_modif,pro_bloque
+$requete = "SELECT pro_id , pro_ref, pro_libelle, pro_description, pro_prix, pro_stock, pro_couleur, pro_photo, pro_d_ajout,pro_d_modif,pro_bloque
 FROM produits
-ORDER BY pro_add_date DESC";	
+ORDER BY pro_d_ajout DESC";	
 $result = $db->query($requete);	
 if (!$result) 	
 {
@@ -81,14 +81,14 @@ echo "
 while ($row = $result->fetch(PDO::FETCH_OBJ))	
 {
     echo"<tr>";
-    echo "<td><img src=\"jarditou_photos//$row->pro_id.$row->pro_picture\" width=70 height=50 class=\"img-fluid \" alt=\"$row->pro_name\"></td>";
+    echo "<td><img src=\"jarditou_photos//$row->pro_id.$row->pro_photo\" width=70 height=50 class=\"img-fluid \" alt=\"$row->pro_libelle\"></td>";
     echo"<td>".$row->pro_id."</td>";
     echo"<td>".$row->pro_ref."</td>";
-    echo"<td><a href=\"detail.php?pro_id=$row->pro_id\">$row->pro_name</a></td>";
-    echo"<td>".$row->pro_price."</td>";
-    echo"<td>".$row->pro_stock_phy."</td>";
-    echo"<td>".$row->pro_color."</td>";
-    echo"<td>".$row->pro_add_date."</td>";
+    echo"<td><a href=\"detail.php?pro_id=$row->pro_id\">$row->pro_libelle</a></td>";
+    echo"<td>".$row->pro_prix."</td>";
+    echo"<td>".$row->pro_stock."</td>";
+    echo"<td>".$row->pro_couleur."</td>";
+    echo"<td>".$row->pro_d_ajout."</td>";
     echo"</tr>";
 } 
 echo "</table>"; 
