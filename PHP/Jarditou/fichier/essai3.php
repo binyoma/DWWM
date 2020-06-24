@@ -7,6 +7,6 @@ while (!feof($fp))
 { 
     // Lecture d'une ligne, le contenu de la ligne est affecté à la variable $ligne  
     $ligne = fgets($fp, 4096); 
-    echo "<a href=$ligne >$ligne </a><br>" ;
+    echo "<a style=\"text-decoration:none\" href=$ligne >$ligne </a><br>" ;
 } 
 ?>
