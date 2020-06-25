@@ -1,42 +1,42 @@
 <?php 
 session_start();
-echo "Déjà inscrit(e)? "."<a style=\"text-decoration:none\" href=login.php > Se connecter </a><br>";
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <form action="seConnecter.php" method="POST">
+include("fonctions.php");
+echo "
+
+    <form action=\"seConnecter.php\" method=\"POST\">
+    Déjà inscrit(e)? <a style=\"text-decoration:none\" href=login.php > Se connecter </a><br>
     <p>
-    <label for="mail" >Email</label>
-    <input type="email"  name="mail" required pattern="/^[a-z0-9\-_]+[a-z09\.\-_]*@[a-z0-9\-_]{2,}\.[a-z\.\-_]+[a-z\-_]+$/i">
+    <label for=\"mail\" >Email</label>
+    <input type=\"email\"  name=\"mail\" required >
    </p>
-    <label for="password" >Mot de passe</label>
-    <input type="password"  name="password" required pattern="/^\S*(?=\S{8,})(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W]\S*$)/">
-    <p> Note: Le mot de passe doit possèder au moins 8 caractères dont au moins une majuscule,
+    <label for=\"password\" >Mot de passe</label>
+    <input type=\"password\"  name=\"password\" required >
+    <p> Note: Le mot de passe doit possèder au moins 8 caractères dont au moins une majuscule,une minuscule
  un chiffre et un caractère spécial</p>
-    </form>
-    <button type='submit' id='envoi'  >Envoyer</button>
-
-
-    <?php
-    include("fonctions.php");
- 
- $v='/^\S*(?=\S{8,})(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W]\S*$)/'; 
- 
-  if ((isset($_POST['mail']))&&(isset($_POST['password']))){
-    if ((filter_var($_POST['mail'],FILTER_VALIDATE_EMAIL))&&(preg_match($v,$_POST['pass']))) {
-        $pierre=new Utilisateur($_POST['nom'],$_POST['pass']);
-        echo $pierre->getNom(). '<br>';
-      }else{
-          echo 'le  nom ou le mot de passe choisis ne répondent pas aux critères';
-      } 
-  }
-  
- ?>
+    ";
+    
+    $v="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}$/"; 
+    if (isset($mail)&&isset($pass)){
+        if ((filter_var($mail,FILTER_VALIDATE_EMAIL))&&(preg_match($v,$pass))) {
+            $mail=valid_donnees($_POST['mail']);
+            $pass=valid_donnees($_POST['password']);
+            $dbco=new PDO ('mysql:host=localhost;port=3308 ;charset=utf8; dbname=session', 'root', 'password');
+            $dbco->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            $sth=$dbco->prepare("INSERT INTO login_password(pass_login, pass_word) 
+                                        VALUES(:pass_login, :pass_word) ");
+            $sth->bindParam(':pass_login',$mail);
+            $sth->bindParam(':pass_word',$pass);
+            $sth->execute();
+            header("location:login.php");
+                }
+        else{
+            header("location:seConnecter.php?message=1");
+                }
+            }
+     if (isset($_GET["message"])&&($_GET["message"]==1)){
+        echo "<span style='color:ff0000'>Email invalide ou mot de passe incorrect</span>";
+        }
+    echo "<button type='submit' id='envoi'  >Envoyer</button> </form>";
+    ?>
 </body>
 </html>
