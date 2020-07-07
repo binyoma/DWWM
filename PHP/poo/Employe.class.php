@@ -59,8 +59,8 @@ class Employe {
     }
     // calcul de l'anciennneté
     public function anciennete(Employe $employe) { 
-        $anciennete = date('Y') - date('Y', strtotime($this->getDateEmbauche));
-        if (date('md') < date('md', strtotime(($this->getDateEmbauche))) ){ 
+        $anciennete = date('Y') - date('Y', strtotime($this->getDateEmbauche()));
+        if (date('md') < date('md', strtotime(($this->getDateEmbauche()))) ){ 
             return $anciennete - 1;
         }else {
             return $anciennete;
@@ -70,7 +70,7 @@ class Employe {
     //calcul de la prime 
 
     public function prime (Employe $employe){
-        $prime=($this->getSalaireAnnuel)*(0.05+(0.02*($this->anciennete($this))));
+        $prime=($this->getSalaireAnnuel())*(0.05+(0.02*($this->anciennete($this))));
         return $prime;
     }
 
