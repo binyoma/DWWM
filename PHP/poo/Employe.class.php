@@ -1,5 +1,5 @@
 <?php
-class Employe {
+class Employe extends Agence {
     private $_nom;
     private $_prenom;
     private $_dateEmbauche;

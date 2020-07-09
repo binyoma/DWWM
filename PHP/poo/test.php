@@ -14,7 +14,7 @@ new Employe('David','Igor','2015-01-01','Commercial',50000,'Ventes')
 
 
 echo "	
-    <table border=\"table table-bordered table-striped \">
+    <table border=\"solid 2px\" style=\" border-collapse:collapse \">
         <thead>
             <tr>
                 <th><h5>Nom</h5></th>
@@ -94,7 +94,7 @@ echo "<br><br>le nombre d’employés de l’entreprise est : ".count($employees
 echo "<br><br> les informations des employés par ordre alphabétique sur le nom et le prénom : ";
 
 echo "	
-    <table border=\"table table-bordered table-striped \">
+    <table border=\"solid 2px\" style=\" border-collapse:collapse \" >
         <thead>
             <tr>
                 <th><h5>Nom</h5></th>
@@ -132,7 +132,7 @@ foreach($employe as $val){
 }
 echo "<br><br> toutes les informations des employés par ordre alphabétique de service, nom et prénom :";
 echo "	
-<table border=\"table table-bordered table-striped \">
+<table border=\"solid 2px\" style=\" border-collapse:collapse \">
     <thead>
         <tr>
             <th><h5>Nom</h5></th>
@@ -149,4 +149,12 @@ echo"<td>".$value['service']."</td>";
 echo"</tr>";
 } 
 echo "</table>"; 
+
+echo "<br><br> le montant total du coût que représentent tous les salariés : ";
+foreach($employe as $val){
+    $cout[]=$val->getSalaireAnnuel();
+    $cout[]=$val->prime($val);
+}
+
+print_r(array_sum($cout));
 ?>
