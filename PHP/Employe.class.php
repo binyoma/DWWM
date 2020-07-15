@@ -48,7 +48,7 @@ class Employe {
     
     //Méthodes:
 
-   /* function __construct($nom, $prenom, $dateEmbauche, $fonction,$salaireAnnuel,$service){
+    function __construct($nom, $prenom, $dateEmbauche, $fonction,$salaireAnnuel,$service){
         $this->_nom=$nom;
         $this->_prenom=$prenom;
         $this->_dateEmbauche=$dateEmbauche;
@@ -56,7 +56,7 @@ class Employe {
         $this->_salaireAnnuel=$salaireAnnuel;
         $this->_service=$service;
 
-    }*/
+    }
 
     // calcul de l'anciennneté
     public function getAnciennete() { 
@@ -71,7 +71,7 @@ class Employe {
     //calcul de la prime 
 
     public function calculerPrime (){
-        $prime=(($this->getSalaire())*5/100)+(2/100*($this->getSalaire())*($this->getAnciennete()));
+        $prime=($this->getSalaire())*(5+(2*($this->getAnciennete())))/100;
         return $prime;
     }
 

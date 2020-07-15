@@ -2,9 +2,10 @@
 // Indiquez ici le chemin absolu vers votre fichier "Personnage.class.php"
 require "C:\wamp\www\DWWM\PHP\poo\classes\PersonnageDefault.class.php";
 
+
 use PHPUnit\Framework\TestCase; // Charge le framework PhpUnit
 
-class PersonnageDefaultTest extends TestCase
+class PersonnageTest extends TestCase
 {   
     public function isPropertyPrivate($instance, $propertyName){
         $reflector = new \ReflectionProperty($instance, $propertyName);
@@ -23,7 +24,7 @@ class PersonnageDefaultTest extends TestCase
     // Teste la valeur par défaut du champ nom à l'instanciation
     public function testPersonnageChampNomDefault() {
         $personnageLambda = new PersonnageDefault();
-        $this->assertEquals("Dave", $personnageLambda->getNom());
+        $this->assertEquals("Loper", $personnageLambda->getNom());
     }
     
     // Teste l'assignation du champ nom 
@@ -43,7 +44,7 @@ class PersonnageDefaultTest extends TestCase
     // Teste la valeur par défaut du champ prenom à l'instanciation
     public function testPersonnageChampPrenomDefault() {
         $personnageLambda = new PersonnageDefault();
-        $this->assertEquals("Loper", $personnageLambda->getPrenom());
+        $this->assertEquals("Dave", $personnageLambda->getPrenom());
     }
     
     // Teste l'assignation du champ prenom

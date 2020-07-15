@@ -7,10 +7,10 @@ class PersonnageDefault{
     private $_sexe;
 
     function __construct(){
-        $this->_nom="Dave";
-        $this->_prenom="Loper";
+        $this->_nom="Loper";
+        $this->_prenom="Dave";
         $this->_age=18;
-        $this->_sexe="Masculin";
+        $this->_sexe="masculin";
 
     }
 

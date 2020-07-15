@@ -5,11 +5,11 @@ include('Employe.class.php');
 //3
 $employe=[ 
 
-new Employe('Bernard','François','2005-01-01','Comptable',50000,'Comptabilité'),
-new Employe('Edouard','hervé','2020-01-01','Commercial',30000,'Ventes'),
-new Employe('Cedric','georges','2010-01-01','DRH',40000,'Direction'),
-new Employe('Arnold','Jacques','2000-01-01','Directeur',60000,'Direction'),
-new Employe('David','Igor','2015-01-01','Commercial',50000,'Ventes')
+new Employe('Bernard','François','2015-07-12','Comptable',30000,'Comptabilité'),
+new Employe('Edouard','hervé','2010-07-12','Commercial',30000,'Ventes'),
+new Employe('Cedric','georges','2010-01-01','DRH',30000,'Direction'),
+new Employe('Arnold','Jacques','2000-01-01','Directeur',30000,'Direction'),
+new Employe('David','Igor','2015-01-01','Commercial',30000,'Ventes')
 ];
 
 
@@ -23,7 +23,7 @@ echo "
                 <th><h5>Salaire annuel</h5></th>
                 <th><h5>Service</h5></th>
                 <th><h5>Ancienneté</h5></th>
-                <th><h5>prime</h5></th>
+                <th><h5>prime</h5></th> 
             </tr>
         </thead>";
 
@@ -32,10 +32,10 @@ foreach($employe as $value){
     echo "<td>".$value->getNom()."</td>";
     echo"<td>".$value->getPrenom()."</td>";
     echo"<td>".$value->getFonction()."</td>";
-    echo"<td>".$value->getSalaireAnnuel()."</td>";
+    echo"<td>".$value->getSalaire()."</td>";
     echo"<td>".$value->getService()."</td>";
-    echo"<td>".$value->anciennete($value)."</td>";
-    echo"<td>".$value->prime($value)."</td>";
+    echo"<td>".$value->getAnciennete()."</td>";
+    echo"<td>".$value->calculerPrime()."</td>";
     echo"</tr>";
     } 
     echo "</table>"; 
@@ -80,11 +80,11 @@ $employees []= array(
     'nom' => $val->getNom(),
     'prénom' => $val->getPrenom(),
     'Fonction' => $val->getFonction(),
-    'Salaire annuel' => $val->getSalaireAnnuel(),
+    'Salaire annuel' => $val->getSalaire(),
     'service' => $val->getService(),
     'Date embauche' => $val->getDateEmbauche(),
-    'anciennete'=>$val->anciennete($val),
-    'prime'=>$val->prime($val)
+    'anciennete'=>$val->getAnciennete(),
+    'prime'=>$val->calculerPrime()
     
     
 );
@@ -152,8 +152,8 @@ echo "</table>";
 
 echo "<br><br> le montant total du coût que représentent tous les salariés : ";
 foreach($employe as $val){
-    $cout[]=$val->getSalaireAnnuel();
-    $cout[]=$val->prime($val);
+    $cout[]=$val->getSalaire();
+    $cout[]=$val->calculerPrime($val);
 }
 
 print_r(array_sum($cout));
