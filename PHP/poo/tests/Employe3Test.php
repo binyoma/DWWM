@@ -25,10 +25,11 @@ class Employe3Test extends TestCase
     // Teste la fonction calculerPrime() de la classe Employe
     public function testPrimeEmploye1(){
         $employeATester = new Employe();
-        $dateTemoin = "12-07-2015";
+        $dateTemoin = "12-08-2015";
         $montantPrime = 4500;
 
         $employeATester->setSalaire($this->salaireTemoin);
+        $employeATester->setDateEmbauche($dateTemoin);
         $this->assertEquals($montantPrime,$employeATester->calculerPrime());
     }
     
@@ -39,7 +40,7 @@ class Employe3Test extends TestCase
         $montantPrime = 7500;
 
         $employeATester->setSalaire($this->salaireTemoin);
-        $employeATester->setDateEmbauche($this->dateTemoin);
+        $employeATester->setDateEmbauche($dateTemoin);
         $this->assertEquals($montantPrime,$employeATester->calculerPrime());
     }
     
@@ -50,8 +51,8 @@ class Employe3Test extends TestCase
         $montantPrime = 6000;
         $salaireTemoin = 24000;
 
-        $employeATester->setSalaire($this->salaireTemoin);
-        $employeATester->setDateEmbauche($this->dateTemoin);
+        $employeATester->setSalaire($salaireTemoin);
+        $employeATester->setDateEmbauche($dateTemoin);
         $this->assertEquals($montantPrime,$employeATester->calculerPrime());
     }
     
@@ -62,8 +63,8 @@ class Employe3Test extends TestCase
         $montantPrime = 4050;
         $salaireTemoin = 45000;
 
-        $employeATester->setSalaire($this->salaireTemoin);
-        $employeATester->setDateEmbauche($this->dateTemoin);
+        $employeATester->setSalaire($salaireTemoin);
+        $employeATester->setDateEmbauche($dateTemoin);
         $this->assertEquals($montantPrime,$employeATester->calculerPrime());
     }
 }

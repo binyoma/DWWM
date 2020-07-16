@@ -1,5 +1,5 @@
 <?php
-class Employe {
+class Employe extends Agence {
     private $_nom;
     private $_prenom;
     private $_dateEmbauche;
@@ -71,7 +71,11 @@ class Employe {
     //calcul de la prime 
 
     public function calculerPrime (){
-        $prime=(($this->getSalaire())*5/100)+(2/100*($this->getSalaire())*($this->getAnciennete()));
+        $salaire =$this->getSalaire();
+        $primeSalaire=($salaire*5)/100;
+        $anciennete=$this->getAnciennete();
+        $primeAnciennete= ($salaire*2)/100*$anciennete;
+        $prime=$primeSalaire+$primeAnciennete;
         return $prime;
     }
 

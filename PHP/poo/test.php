@@ -1,5 +1,6 @@
 <?php
 include('Employe.class.php');
+include('Agence.class.php');
 
 
 //3
@@ -7,9 +8,9 @@ $employe=[
 
 new Employe('Bernard','François','2015-07-12','Comptable',30000,'Comptabilité'),
 new Employe('Edouard','hervé','2010-07-12','Commercial',30000,'Ventes'),
-new Employe('Cedric','georges','2010-01-01','DRH',30000,'Direction'),
+new Employe('Edouard','georges','2010-01-01','DRH',30000,'Direction'),
 new Employe('Arnold','Jacques','2000-01-01','Directeur',30000,'Direction'),
-new Employe('David','Igor','2015-01-01','Commercial',30000,'Ventes')
+new Employe('Arnold','Igor','2015-01-01','Commercial',30000,'Ventes')
 ];
 
 
@@ -90,6 +91,13 @@ $employees []= array(
 );
 
 }
+
+
+$nom=array_column($employees,'nom');
+$prenom=array_column($employees,'prénom');
+
+array_multisort($nom, SORT_ASC, $prenom, SORT_ASC, $employees);
+
 echo "<br><br>le nombre d’employés de l’entreprise est : ".count($employees);
 echo "<br><br> les informations des employés par ordre alphabétique sur le nom et le prénom : ";
 
@@ -107,7 +115,7 @@ echo "
             </tr>
         </thead>";
 
-foreach(array_sort($employees,'nom',SORT_ASC) as $value){
+foreach($employees as $value){
     echo"<tr>";
     echo "<td>".$value['nom']."</td>";
     echo"<td>".$value['prénom']."</td>";
@@ -153,7 +161,7 @@ echo "</table>";
 echo "<br><br> le montant total du coût que représentent tous les salariés : ";
 foreach($employe as $val){
     $cout[]=$val->getSalaire();
-    $cout[]=$val->calculerPrime($val);
+    $cout[]=$val->calculerPrime();
 }
 
 print_r(array_sum($cout));
