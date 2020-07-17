@@ -1,12 +1,15 @@
 <?php
-class Employe extends Agence {
-    private $_nom;
-    private $_prenom;
-    private $_dateEmbauche;
-    private $_fonction;
-    private $_salaireAnnuel;
-    private $_service;
+include('classes/Agence.class.php');
 
+class Employe extends Agence {
+    protected $_nom;
+    protected $_prenom;
+    protected $_dateEmbauche;
+    protected $_fonction;
+    protected $_salaireAnnuel;
+    protected $_service;
+
+    private static $compteur=0;
 
   //Accesseurs et Mutateur 
     public function getNom(){
@@ -48,7 +51,7 @@ class Employe extends Agence {
     
     //Méthodes:
 
-   /* function __construct($nom, $prenom, $dateEmbauche, $fonction,$salaireAnnuel,$service){
+    function __construct($nom, $prenom, $dateEmbauche, $fonction,$salaireAnnuel,$service){
         $this->_nom=$nom;
         $this->_prenom=$prenom;
         $this->_dateEmbauche=$dateEmbauche;
@@ -56,7 +59,7 @@ class Employe extends Agence {
         $this->_salaireAnnuel=$salaireAnnuel;
         $this->_service=$service;
 
-    }*/
+    }
 
     // calcul de l'anciennneté
     public function getAnciennete() { 
@@ -80,5 +83,10 @@ class Employe extends Agence {
     }
 
     // ordre de transfert
+
+
+    public static function getCompteur(){
+        return self::$compteur;
+    }
 
 }

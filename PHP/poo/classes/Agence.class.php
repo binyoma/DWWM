@@ -1,6 +1,6 @@
 <?php
 class Agence{
-    protected $_nom;
+    protected $_nomAgence;
     protected $_adresse;
     protected $_codePostal;
     protected $_ville;
@@ -8,10 +8,10 @@ class Agence{
 
   //Accesseurs et Mutateur 
     public function getNom(){
-        return $this->_nom;
+        return $this->_nomAgence;
     }
     public function setNom($nom){
-        return $this->_nom=$nom;
+        return $this->_nomAgence=$nom;
     }
     public function getAdresse(){
         return $this->_Adresse;

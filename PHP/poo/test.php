@@ -1,6 +1,5 @@
 <?php
-include('Employe.class.php');
-include('Agence.class.php');
+include('classes/Employe.class.php');
 
 
 //3
@@ -86,8 +85,6 @@ $employees []= array(
     'Date embauche' => $val->getDateEmbauche(),
     'anciennete'=>$val->getAnciennete(),
     'prime'=>$val->calculerPrime()
-    
-    
 );
 
 }
