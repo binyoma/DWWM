@@ -1,11 +1,13 @@
 <?php
 // Indiquez ici le chemin absolu vers votre fichier "Personnage.class.php"
-require "C:\wamp\www\DWWM\PHP\poo\classes\PersonnageDefault.class.php";
-
+spl_autoload_register(function($class) 
+{
+    include "classes/".$class.".class.php";
+});
 
 use PHPUnit\Framework\TestCase; // Charge le framework PhpUnit
 
-class PersonnageTest extends TestCase
+class PersonnageDefaultTest extends TestCase
 {   
     public function isPropertyPrivate($instance, $propertyName){
         $reflector = new \ReflectionProperty($instance, $propertyName);

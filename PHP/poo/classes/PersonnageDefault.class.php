@@ -10,7 +10,7 @@ class PersonnageDefault{
         $this->_nom="Loper";
         $this->_prenom="Dave";
         $this->_age=18;
-        $this->_sexe="masculin";
+        $this->_sexe="Masculin";
 
     }
 

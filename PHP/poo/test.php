@@ -1,5 +1,5 @@
 <?php
-include('classes/Employe.class.php');
+/*include('classes/Employe.class.php');
 
 
 //3
@@ -11,7 +11,16 @@ new Employe('Edouard','georges','2010-01-01','DRH',30000,'Direction'),
 new Employe('Arnold','Jacques','2000-01-01','Directeur',30000,'Direction'),
 new Employe('Arnold','Igor','2015-01-01','Commercial',30000,'Ventes')
 ];
+$agenceSiège=new Agence('Siège','la defense','75000','Paris','Tickets restaurants');
+$agenceNord=new Agence('Nord','la place','60000','Lille','En entreprise');
+$agenceSud=new Agence('Sud','vieux port','13000','Marseille','Tickets restaurants');
 
+
+$employe[0]->affecterAgence($employe[0],$agenceSiège);
+$employe[1]->affecterAgence($employe[1],$agenceNord);
+$employe[2]->affecterAgence($employe[2],$agenceSud);
+$employe[3]->affecterAgence($employe[3],$agenceSiège);
+$employe[4]->affecterAgence($employe[4],$agenceNord);
 
 echo "	
     <table border=\"solid 2px\" style=\" border-collapse:collapse \">
@@ -40,40 +49,7 @@ foreach($employe as $value){
     } 
     echo "</table>"; 
 //4 
-function array_sort($array, $on, $order=SORT_ASC)
-{
-    $new_array = array();
-    $sortable_array = array();
 
-    if (count($array) > 0) {
-        foreach ($array as $k => $v) {
-            if (is_array($v)) {
-                foreach ($v as $k2 => $v2) {
-                    if ($k2 == $on) {
-                        $sortable_array[$k] = $v2;
-                    }
-                }
-            } else {
-                $sortable_array[$k] = $v;
-            }
-        }
-
-        switch ($order) {
-            case SORT_ASC:
-                asort($sortable_array);
-            break;
-            case SORT_DESC:
-                arsort($sortable_array);
-            break;
-        }
-
-        foreach ($sortable_array as $k => $v) {
-            $new_array[$k] = $array[$k];
-        }
-    }
-
-    return $new_array;
-}
 foreach($employe as $val){
 $employees []= array(
         
@@ -124,42 +100,87 @@ foreach($employees as $value){
     echo"</tr>";
     } 
     echo "</table>"; 
+ $serv=array_column($employees,'service');
+array_multisort($serv, SORT_ASC,$nom, SORT_ASC, $prenom, SORT_ASC, $employees);
 
-foreach($employe as $val){
-    $service []= array(
-            
-        'nom' => $val->getNom(),
-        'prénom' => $val->getPrenom(),
-        'service'=>$val->getService()
-        
-    );
-    
-}
-echo "<br><br> toutes les informations des employés par ordre alphabétique de service, nom et prénom :";
-echo "	
-<table border=\"solid 2px\" style=\" border-collapse:collapse \">
-    <thead>
-        <tr>
-            <th><h5>Nom</h5></th>
-            <th><h5>Prénom</h5></th>
-            <th><h5>service</h5></th>
-        </tr>
-    </thead>";
-
-foreach(array_sort($service,'service',SORT_ASC) as $value){
-echo"<tr>";
-echo "<td>".$value['nom']."</td>";
-echo"<td>".$value['prénom']."</td>";
-echo"<td>".$value['service']."</td>";
-echo"</tr>";
-} 
-echo "</table>"; 
+echo "<br><br> afficher toutes les informations des employés par ordre alphabétique de service, nom et prénom";
 
 echo "<br><br> le montant total du coût que représentent tous les salariés : ";
+echo "	
+    <table border=\"solid 2px\" style=\" border-collapse:collapse \" >
+        <thead>
+            <tr>
+                <th><h5>Nom</h5></th>
+                <th><h5>Prénom</h5></th>
+                <th><h5>Salaire annuel</h5></th>
+                <th><h5>service</h5></th>
+                <th><h5>Date d'embauche</h5></th>
+                <th><h5>Ancienneté</h5></th>
+                <th><h5>prime</h5></th>
+            </tr>
+        </thead>";
+
+foreach($employees as $value){
+    echo"<tr>";
+    echo "<td>".$value['nom']."</td>";
+    echo"<td>".$value['prénom']."</td>";
+    echo"<td>".$value['Salaire annuel']."</td>";
+    echo"<td>".$value['service']."</td>";
+    echo"<td>".$value['Date embauche']."</td>";
+    echo"<td>".$value['anciennete']."</td>";
+    echo"<td>".$value['prime']."</td>";
+    echo"</tr>";
+    } 
+    echo "</table>";
 foreach($employe as $val){
     $cout[]=$val->getSalaire();
     $cout[]=$val->calculerPrime();
 }
 
 print_r(array_sum($cout));
+//6
+
+
+
+echo "	
+    <table border=\"solid 2px\" style=\" border-collapse:collapse \">
+        <thead>
+            <tr>
+                <th><h5>Nom</h5></th>
+                <th><h5>Prénom</h5></th>
+                <th><h5>Fonction</h5></th>
+                <th><h5>Salaire annuel</h5></th>
+                <th><h5>Service</h5></th>
+                <th><h5>Ancienneté</h5></th>
+                <th><h5>prime</h5></th>
+                <th><h5>Agence</h5></th>
+                <th><h5>Adresse agence</h5></th>
+                <th><h5>CP</h5></th>
+                <th><h5>Ville</h5></th>
+                <th><h5>Restauration</h5></th>
+            </tr>
+        </thead>";
+
+foreach($employe as $value){
+    echo"<tr>";
+    echo "<td>".$value->getNom()."</td>";
+    echo"<td>".$value->getPrenom()."</td>";
+    echo"<td>".$value->getFonction()."</td>";
+    echo"<td>".$value->getSalaire()."</td>";
+    echo"<td>".$value->getService()."</td>";
+    echo"<td>".$value->getAnciennete()."</td>";
+    echo"<td>".$value->calculerPrime()."</td>";
+    echo"<td>".$value->getNomAgence()."</td>";
+    echo"<td>".$value->getAdresse()."</td>";
+    echo"<td>".$value->getCodePostal()."</td>";
+    echo"<td>".$value->getVille()."</td>";
+    echo"<td>".$value->getRestoEntreprise()."</td>";
+    echo"</tr>";
+    } 
+    echo "</table>"; */
+ 
+
+var_dump(DateTime::createFromFormat("d/m/Y",))
+
+
 ?>

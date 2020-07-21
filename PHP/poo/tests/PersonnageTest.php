@@ -1,6 +1,10 @@
 <?php
 // Indiquez ici le chemin absolu vers votre fichier "Personnage.class.php"
-require "C:\wamp\www\DWWM\PHP\poo\classes/Personnage.class.php";
+spl_autoload_register(function($class) 
+{
+    include "classes/".$class.".class.php";
+});
+
 use PHPUnit\Framework\TestCase; // Charge le framework PhpUnit
 
 class PersonnageTest extends TestCase
@@ -24,7 +28,7 @@ class PersonnageTest extends TestCase
         $personnageLambda = $this->creerPerso();
         $this->assertNotNull($personnageLambda);
     }
-
+    
     // Teste la visibilité du champ nom
     public function testPersonnageChampNom(){
         $personnageLambda = $this->creerPerso();
@@ -44,8 +48,8 @@ class PersonnageTest extends TestCase
         $personnageLambda->setNom("Loper");
         $this->assertEquals('Loper',$personnageLambda->getNom());
     }
-
-    // Teste la visibilité du champ nom
+    
+    // Teste la visibilité du champ prénom
     public function testPersonnageChampPrenom(){
         $personnageLambda = $this->creerPerso();
         $private = $this->isPropertyPrivate($personnageLambda,'_prenom');
@@ -61,11 +65,11 @@ class PersonnageTest extends TestCase
     // Teste l'assignation du champ prenom
     public function testPersonnageValeurPrenom() {
         $personnageLambda = $this->creerPerso();
-        $personnageLambda->setNom("Dave");
-        $this->assertEquals('Dave',$personnageLambda->getNom());
+        $personnageLambda->setPrenom("Dave");
+        $this->assertEquals('Dave',$personnageLambda->getPrenom());
     }
-
-    // Teste la visibilité du champ nom
+    
+    // Teste la visibilité du champ age
     public function testPersonnageChampAge(){
         $personnageLambda = $this->creerPerso();
         $private = $this->isPropertyPrivate($personnageLambda,'_age');
@@ -81,11 +85,11 @@ class PersonnageTest extends TestCase
     // Teste l'assignation du champ age
     public function testPersonnageValeurAge() {
         $personnageLambda = $this->creerPerso();
-        $personnageLambda->setNom(18);
-        $this->assertEquals(18,$personnageLambda->getNom());
+        $personnageLambda->setAge(18);
+        $this->assertEquals(18,$personnageLambda->getAge());
     }
-
-    // Teste la visibilité du champ nom
+    
+    // Teste la visibilité du champ sexe
     public function testPersonnageChampSexe(){
         $personnageLambda = $this->creerPerso();
         $private = $this->isPropertyPrivate($personnageLambda,'_sexe');
@@ -101,8 +105,8 @@ class PersonnageTest extends TestCase
     // Teste l'assignation du champ sexe
     public function testPersonnageValeurSexe() {
         $personnageLambda = $this->creerPerso();
-        $personnageLambda->setNom("Masculin");
-        $this->assertEquals('Masculin',$personnageLambda->getNom());
+        $personnageLambda->setSexe("Masculin");
+        $this->assertEquals('Masculin',$personnageLambda->getSexe());
     }
 }
 ?>

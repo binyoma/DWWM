@@ -1,24 +1,46 @@
 <?php
-require_once ".\classes/Employe.class.php";
+spl_autoload_register(function($class) 
+{
+    include "classes/".$class.".class.php";
+});
 
 use PHPUnit\Framework\TestCase; // Charge le framework PhpUnit
 
 class Employe2Test extends TestCase
 {
-    public $dateTemoin = "12-07-2000"; // la différence entre / et -
-    
-    // Teste l'assignation du champ nom 
+    public $dateTemoin = "12/07/2000";
+    // Teste l'assignation du champ date d'embauche 
     public function testEmployeValeurDateEmbauche() {
-        $employeATester = new Employe();
+        $employeATester = new Employe();    
+        $dateTemoin = DateTime::createFromFormat("d/m/Y",$this->dateTemoin);
         $employeATester->setDateEmbauche($this->dateTemoin);
-        $this->assertEquals($this->dateTemoin,$employeATester->getDateEmbauche());
+        $this->assertEquals($dateTemoin,$employeATester->getDateEmbauche());
     }
     
     // Teste la fonction getAnciennete de la classe Employe
     public function testAncienneteEmploye(){
         $employeATester = new Employe();
         $anciennete = 20;
-        $employeATester->setDateEmbauche($this->dateTemoin); // à signaler
+        // $dateTemoin = DateTime::createFromFormat("d/m/Y",$this->dateTemoin);
+        $employeATester->setDateEmbauche($this->dateTemoin);
+        $this->assertEquals($anciennete,$employeATester->getAnciennete());
+    }
+    
+    // Teste la fonction getAnciennete de la classe Employe
+    public function testAncienneteEmploye2(){
+        $anciennete = 19;
+        $dateTemoin = "12/08/2000";
+        $employeATester = new Employe();
+        $employeATester->setDateEmbauche("12/08/2000");
+        $this->assertEquals($anciennete,$employeATester->getAnciennete());
+    }
+    
+    // Teste la fonction getAnciennete de la classe Employe
+    public function testAncienneteEmploye3(){
+        $employeATester = new Employe();
+        $anciennete = 1;
+        // $dateTemoin = DateTime::createFromFormat("d/m/Y",$this->dateTemoin);
+        $employeATester->setDateEmbauche("29/10/2018");
         $this->assertEquals($anciennete,$employeATester->getAnciennete());
     }
 }
